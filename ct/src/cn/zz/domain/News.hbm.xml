@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    <hibernate-mapping>
+    	<class name="cn.zz.domain.News" table="news" >
+    		<id name="id" >
+    			<generator class="native"></generator>
+    		</id>
+    		<property name="title"></property>
+    		<property name="pic"></property>
+		    <property name="text"></property>
+		    <property name="url"></property>
+		    <property name="type"></property>
+		   
+		    <property name="date"></property>
+		    <!-- 查询新闻后立即查询自己属于的用户对象 -->
+		    <many-to-one name="use" class="cn.zz.domain.User" column="userID" cascade="save-update" lazy="false">
+		    </many-to-one>
+		    
+		    <set name="commentSet" inverse="true">
+		    	<key column="newsID"></key>
+		    	<one-to-many class="cn.zz.domain.Comment"/>
+		    </set>
+		    
+		    <set name="collect" table="collect" inverse="true">
+		    	<key column="newsID"></key>
+		    	<many-to-many class="cn.zz.domain.User" column="userID"></many-to-many>
+		    </set>
+		    <set name="goodUser" table="goodnews" inverse="true">
+		    	<key column="newsID"></key>
+		    	<many-to-many class="cn.zz.domain.User" column="userID"></many-to-many>
+		    </set>
+		   
+    	</class>
+
+    </hibernate-mapping>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd
+       					   http://www.springframework.org/schema/tx 
+       					   http://www.springframework.org/schema/tx/spring-tx.xsd
+       					   http://www.springframework.org/schema/aop 
+       					   http://www.springframework.org/schema/aop/spring-aop.xsd
+       					   http://www.springframework.org/schema/context 
+       					   http://www.springframework.org/schema/context/spring-context.xsd">
+  
+  <!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:dateSource.properties"/>
+	
+  <!-- 设置DataSource注入sessionfactory -->		   
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driverClass}"></property>
+		<property name="jdbcUrl" value="${jdbcUrl}"></property>
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
+	</bean>
+ <!-- 设置sessionfactory，注入到hibernatetemplate中,并且在这里设置好hibernate的属性    （hibernate.cfg.xml） -->
+ <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+ 	<!-- 这里直接导入hibernate的cfg主配置文件，<property name="configLocation" value="classpath:hibernate.cfg.xml"></property> -->
+ 	<property name="dataSource" ref="dataSource"></property>
+ 	<property name="hibernateProperties">
+ 		<props>
+ 			<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+ 			<prop key="hibernate.show_sql">true</prop>
+ 			<prop key="hibernate.format_sql">true</prop>
+ 		</props>
+ 	</property>
+ 	<!-- 导入实体对象对应表 -->
+ 	<property name="mappingLocations" value="classpath:cn/zz/domain/*.hbm.xml"></property>
+ 	
+ </bean>
+ <!--注入hibernatetemplate  -->
+ <bean id="hbTemp" class="org.springframework.orm.hibernate3.HibernateTemplate">
+ 	<property name="sessionFactory" ref="sessionFactory"></property>
+ </bean>
+ 
+ <!-- 注入dao的实现 -->
+ <bean id="userDao" class="cn.zz.dao.impl.UseDaoImpl">
+ 	<property name="hbTemp" ref="hbTemp"></property>
+ </bean>
+ <bean id="newsDao" class="cn.zz.dao.impl.NewsDaoImpl">
+ 	<property name="hbTemp" ref="hbTemp"></property>
+ </bean>
+ 
+ 
+ <!-- 注入service的实现 -->
+ <bean id="userService" class="cn.zz.service.UserService">
+ 	<property name="userDao" ref="userDao"></property>
+ </bean>
+ <bean id="newsService" class="cn.zz.service.NewsService" >
+ 	<property name="newsDao" ref="newsDao"></property>
+ 	
+ </bean>
+ 
+
+ 
+ <!-- 配置tx事务管理 -->
+<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+ <tx:annotation-driven transaction-manager="txManager"/>
+ 
+ <!-- =========================================struts2配置=============================== -->
+ <!-- action是多例的，，所以要配置scope为 prototype  实现 多例-->
+ <bean	id="actionlogin" class="cn.zz.web.action.LoginUserAction" scope="prototype">
+ 		<property name="lgService" ref="lgService"></property>
+ </bean>
+ 
+ 
+</beans>

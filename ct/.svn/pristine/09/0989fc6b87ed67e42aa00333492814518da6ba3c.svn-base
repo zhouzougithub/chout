@@ -1,0 +1,61 @@
+package cn.zz.service;
+
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import cn.zz.dao.NewsDao;
+import cn.zz.dao.UserDao;
+import cn.zz.domain.News;
+import cn.zz.domain.User;
+@Transactional
+public class NewsService
+{
+    private NewsDao newsDao;
+    
+
+    //分页查找新闻
+    public List<News> findNews(int offset)
+    {
+        List<News> newsList = newsDao.pagingNews((offset-1)*3+1, 3);
+        //查询点赞的人数,,service负责事务,,所以需要先进行查询,防止懒加载;
+        for (News news : newsList)
+        {
+            //在service中获取到新闻点赞的数量,如果没有在事务中读取,那么在action中session将关闭
+            news.getGoodUser().size();
+            news.getCollect().size();
+            news.getCommentSet().size();
+        }
+        
+        
+        
+        return newsDao.pagingNews((offset-1)*3+1, 3);
+    }
+    
+    //查找共有多少条新闻
+    public int findNewNum()
+    {
+        return newsDao.findNewsSum();
+        
+    }
+    
+
+    
+    
+    
+    
+   
+
+    public void setNewsDao(NewsDao newsDao)
+    {
+        this.newsDao = newsDao;
+    }
+
+
+
+  
+
+ 
+ 
+}

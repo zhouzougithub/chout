@@ -1,0 +1,309 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+  </head>
+  
+  <body>
+    		<div class="modal fade login" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1 myModalLabel2">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content clearfix">
+
+					<!--登录页面-->
+					<div class="pull-left">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+							<h4 class="modal-title" id="myModalLabel1">登录</h4>
+						</div>
+
+						<div class="modal-body my-modal-body">
+							<ul class="nav nav-pills">
+								<li role="presentation" class="active"><a href="#">手机号登录</a></li>
+								<li role="presentation"><a href="#">用户名登录</a></li>
+							</ul>
+
+							<!--手机号登录-->
+							<div class="my-phone-login">
+								<form action="<%=this.getServletContext().getContextPath()%>/login.action" method="post">
+									<div class="form-group">
+										<select class="form-control">
+											<option>中国（+86）</option>
+											<option>中国台湾（+886）</option>
+											<option>中国香港（+852）</option>
+											<option>中国澳门（+853）</option>
+											<option>美国（+1）</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<input type="text" name="usename" class="form-control" id="exampleInputText1" placeholder="手机号">
+									</div>
+									
+									
+									<div class="form-group">
+										<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+									</div>
+									<div class="checkbox" style="padding-left: 20px;">
+
+										<input type="checkbox" style="width: auto;">
+										一个月内自动登录
+										</input>
+
+										<small style="color: #0000FF;">&nbsp;&nbsp;&nbsp;&nbsp;忘记密码？</small>
+									</div>
+									<div class="">
+										<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+										<input type="submit" class="btn btn-primary" style="width: auto;" value="登录"/>
+									</div>
+								</form>
+							</div>
+
+							<!--用户名登录-->
+							<div class="my-user-login">
+								<form action="<%=this.getServletContext().getContextPath()%>/login.action" method="post">
+									<div class="form-group">
+										<input type="text" name="username" class="form-control" id="exampleInputText2" placeholder="用户名">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="密码">
+									</div>
+									<div class="checkbox" style="padding-left: 20px;">
+
+										<input type="checkbox" style="width: auto;">
+										一个月内自动登录
+										</input>
+
+										<small style="color: #0000FF;">&nbsp;&nbsp;&nbsp;&nbsp;忘记密码？</small>
+									</div>
+									<div class="">
+										<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+										<input type="submit" class="btn btn-primary" style="width: auto;" value="登录"/>
+									</div>
+
+								</form>
+							</div>
+							<!--腳-->
+							<div class="modal-footer">
+
+							</div>
+						</div>
+
+
+					</div>
+
+					<!--注册页面-->
+					<div class="pull-right">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel2">注册</h4>
+						</div>
+
+						<div class="modal-body my-modal-body">
+							<ul class="nav nav-tabs">
+								<li role="presentation" class="active login-option"><a href="#">1.填写手机号</a></li>
+								<li role="presentation" class="login-option"><a href="#">2.填写基本资料</a></li>
+							</ul>
+
+							
+
+							<form action="<%=this.getServletContext().getContextPath()%>/register.action" method="post">
+								<!--填写手机号-->
+								<div class="my-phone-register">
+
+									<div class="form-group">
+										<select class="form-control">
+											<option>中国（+86）</option>
+											<option>中国台湾（+886）</option>
+											<option>中国香港（+852）</option>
+											<option>中国澳门（+853）</option>
+											<option>美国（+1）</option>
+										</select>
+									</div>
+									<div class="form-group form-inline">
+										<input type="text" class="form-control" id="exampleInputText3" placeholder="手机号">
+										<button type="submit" class="btn btn-primary">获取验证码</button>
+									</div>
+									<div class="form-group text-right" style="margin-top: -10px;">
+										<small>收不到短信？</small>
+										<small style="color: #337ab7;">获取语音验证码</small>
+									</div>
+									<div class="form-group">
+										<input type="text" name="yzm" class="form-control" id="exampleInputText4" placeholder="验证码,未申请接口状态默认为0000">
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" id="exampleInputPassword3" placeholder="密码">
+									</div>
+								</div>
+
+
+									<!--填写基本信息-->
+								<div class="my-info-register">
+										
+											<div class="form-group">
+												<input type="text" name="patname" class="form-control" id="exampleInputText5" placeholder="昵称">
+											</div>
+											<div class="form-group clearfix">
+												<label class="radio-inline">
+													<input type="radio" name="sex" id="inlineRadio1" value="女" style="width: auto;"
+													 checked>
+													女
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="sex" style="width: auto;" id="inlineRadio2" value="男"> 男
+												</label>
+											</div>
+
+											<div class="form-group">
+												<textarea  name="explains" class="form-control" rows="3" placeholder="签名档（100个汉字以内）"></textarea>
+											</div>
+	
+									</div>
+
+
+								<div class="modal-footer">
+										<button type="button" class="btn btn-primary my-btn-next" onclick="btnNext();">下一步</button>
+										<input type="submit" class="btn btn-primary" style="width: auto;" value="提交资料">
+								</div>
+							</form>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+		<!--发布内容 模态框-->
+		<div class="modal fade modal-publish" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">分享新发现</h4>
+					</div>
+					<!--内容区域-->
+					<div class="modal-body my-modal-body2">
+						<!--标签页-->
+						<ul class="nav nav-pills">
+							<li role="presentation" class="active"><a href="#">连接</a></li>
+							<li role="presentation"><a href="#">文字</a></li>
+							<li role="presentation"><a href="#">图片</a></li>
+						</ul>
+						<!--连接的内容-->
+						<div class="publish">
+							<form action="<%=this.getServletContext().getContextPath()%>/news/sendNews.action" method="post">
+								<p>添加连接</p>
+								<input type="text" name="url" class="form-control" placeholder='http://'>
+								<p>标题</p>
+								<input class="form-control" name="title" type="text">
+								<p>添加摘要(选填)</p>
+								<textarea name="text" class="form-control" rows="3" placeholder="内容"></textarea>
+								<div>
+									<a>发布到：</a>
+									<div class="form-group clearfix">
+										<label class="radio-inline">
+											<input type="radio" name="type" value="42区" style="width: auto;" checked>42区
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="type" style="width: auto;" value="段子"> 段子
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="type" style="width: auto;" value="图片"> 图片
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="type" style="width: auto;" value="你问我答"> 你问我答
+										</label>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									<input type="submit" style="width: auto;" class="btn btn-primary" value="发布">
+								</div>
+							</form>
+						</div>
+						<!--文字-->
+						<div class="publish2">
+							<form action="<%=this.getServletContext().getContextPath()%>/news/sendNews.action" method="post">
+								<input placeholder="发布段子" name="text" type="text" class="form-control">
+								<div>
+									<a>发布到：</a>
+									<div class="form-group clearfix">
+										<label class="radio-inline">
+											<input type="radio" name="type" value="42区" style="width: auto;" checked>42区
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="type" style="width: auto;" value="段子"> 段子
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="type" style="width: auto;" value="图片"> 图片
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="type" style="width: auto;" value="你问我答"> 你问我答
+										</label>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									<input type="submit" class="btn btn-primary" style="width: auto;" value="发布">
+								</div>
+							</form>
+						</div>
+						<!--图片   全局样式表单-->
+						<div class="publish3">
+							<form action="<%=this.getServletContext().getContextPath()%>/news/sendNews.action" method="post" enctype="multipart/form-data">
+								<!--上传文件-->
+								<div class="form-group">
+									<div class="a-upload">
+										<input type="file" name="newsImg"  id="exampleInputFile"  style="width: auto;" >点击上传图片
+									</div>
+									<p class="showFileName" style="margin-left: 15px;"></p>
+									<p class="fileerrorTip" style="margin-left: 15px;"></p>
+								</div>
+								<div class="form-group2">
+									<input type="text" name="text" class="form-control" placeholder="发布段子">
+									<div>
+										<a>发布到：</a>
+										<div class="form-group clearfix">
+											<label class="radio-inline">
+												<input type="radio" name="type" value="42区" style="width: auto;" checked>42区
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="type" style="width: auto;" value="段子"> 段子
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="type" style="width: auto;" value="图片"> 图片
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="type" style="width: auto;" value="你问我答"> 你问我答
+											</label>
+										</div>
+
+
+									</div>
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									<input type="submit" style="width: auto;" class="btn btn-primary" value="发布">
+								</div>
+
+							</form>
+						</div>
+
+					</div>
+
+
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+  </body>
+</html>

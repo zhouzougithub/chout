@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    <hibernate-mapping>
+    	<class name="cn.zz.domain.User" table="user" >
+    		<id name="id" >
+    			<generator class="native"></generator>
+    		</id>
+    		<property name="usename"></property>
+    		<property name="password"></property>
+		    <property name="patname"></property>
+		    <property name="headimgurl"></property>
+		    <property name="explains"></property>
+		    <property name="sex"></property>
+		    <property name="birthday"></property>
+		    
+		    
+		    <set name="commentSet" inverse="true" >
+		    	<key column="userID"></key>
+		    	<one-to-many class="cn.zz.domain.Comment"/>
+		    </set>
+		    <set name="newsSet" inverse="true" >
+		    	<key column="userID"></key>
+		    	<one-to-many class="cn.zz.domain.News"/>
+		    </set>
+		    <!-- 多对多 -->
+		    <set name="collect" table="collect" inverse="false"  cascade="save-update">
+		    	<key column="userID" ></key>
+		    	<many-to-many class="cn.zz.domain.News" column="newsID"></many-to-many>
+		    </set>
+		   	 <set name="goodNews" table="goodnews" inverse="false" cascade="save-update">
+		    	<key column="userID"></key>
+		    	<many-to-many class="cn.zz.domain.News" column="newsID"></many-to-many>
+		    </set>
+    	</class>
+
+    </hibernate-mapping>

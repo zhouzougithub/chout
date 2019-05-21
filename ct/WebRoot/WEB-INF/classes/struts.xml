@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- 定义一个拦截器,拦截未登录用户 -->
+	<package name="myInterceptor" extends="struts-default">
+		<interceptors>
+			<interceptor name="LoginInterceptor" class="cn.zz.web.interceptor.LoginInterceptor">	
+			</interceptor>
+			
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="LoginInterceptor">
+						<!-- 放行这几个action,,不跳转登录jsp -->
+					<param name="excludeMethods">showNewsList,registerUser,login</param> 
+				
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+		<!-- 定义一个全局逻辑结果视图 -->
+		<global-results>
+			<result name="login">/index.jsp</result>
+		</global-results>
+	</package>
+	
+	
+	
+	<package name="p" namespace="/" extends="myInterceptor">
+		<action name="register" class="cn.zz.web.action.LoginUserAction" method="registerUser">
+			<result name="success">/index.jsp</result>
+			<result name="err">/jsp/index.jsp</result>
+		</action>
+		
+		<action name="login" class="cn.zz.web.action.LoginUserAction" method="login">
+			<result name="input">/index.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="namespace">/news</param>
+				<param name="actionName">showNews</param>
+			</result>
+		</action>
+	</package>
+	
+	
+	<package name="p1" namespace="/news" extends="myInterceptor">
+		<action name="sendNews" class="cn.zz.web.action.NewsAction" method="sendNews">
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="showNews" class="cn.zz.web.action.showNewAction" method="showNewsList">
+			<result name="index">/jsp/index.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+	
+	</package>
+	
+	<package name="p2" namespace="/do" extends="myInterceptor">
+		<action name="goodNews" class="cn.zz.web.action.UserHandleNews" method="goodNews">
+			<result name="success">/login.jsp</result>
+		</action>
+		<action name="collect" class="cn.zz.web.action.UserHandleNews" method="collect">
+			<result name="success">/login.jsp</result>
+		</action>
+	
+	</package>
+	
+	<package name="p3" namespace="/json" extends="json-default">
+		  <action name="findCommentAll" class="cn.zz.web.action.ShowCommentByJson" method="getcommentAll">  
+            <result type="json" name="success">  
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->  
+                 <!-- 不能配置root,否则将不能执行excludeProperties -->
+                <param name="excludeProperties">
+                	<!-- 去掉评论中的对象,否者会带来懒加载问题 -->
+                	commentList\[\d+\]\.news\.*,
+                	commentList\[\d+\]\.user\.newsSet\.*,
+                	commentList\[\d+\]\.user\.commentSet\.*,
+                	commentList\[\d+\]\.user\.goodNews\.*,
+                	commentList\[\d+\]\.user\.collect\.*,
+                	commentList\[\d+\]\.user\.password\.*,
+                	commentList\[\d+\]\.user\.explains\.*,
+                	commentList\[\d+\]\.user\.birthday\.*,
+                	commentAll,
+                	
+                </param>
+            </result>  
+        </action>  
+		
+	</package>
+
+	
+	
+</struts>
