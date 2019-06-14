@@ -2,6 +2,7 @@ package cn.zz.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.HibernateException;
@@ -33,19 +34,44 @@ public class NewsDaoImpl implements NewsDao
     /* (non-Javadoc)
      * @see cn.zz.dao.impl.NewsDao#pagingNews(int, int)
      */
-    //分页查询
+    //按照默认时间分页查询,,查出的新闻倒叙输出
     @Override
-    public List<News> pagingNews(int offset,int length)
+    public List<News> pagingNewsByDate(int offset,int length)
    {
-       List<News> Newslist = getListForPage("from News", offset, length);
+       List<News> Newslist = getListForPage("from News order by id desc", offset, length);
        
        return Newslist;
    }
+    
+    //按条件查询新闻
+    @Override
+    public List<News> pagingNewsByDate(int offset,int length,Map<String, String> conMap)
+    {
+        String hql="from News order by id desc where 1=1 ";
+        String type = conMap.get("type");
+        if(type!=null)
+        {
+            hql=hql+" type="+type;
+        }
+        String day = conMap.get("day");
+        if(day!=null)
+        {
+            hql=hql+" and DATEDIFF(NOW(),DATE)<"+day;
+        }
+        
+        List<News> Newslist = getListForPage(hql, offset, length);
+        
+        return Newslist;
+    }
+    
+    
+    
     //查询共有多少条新闻
     public int findNewsSum()
     {
         String hql = "select count(*) from News";
-        return ((Integer)hbTemp.iterate(hql).next()).intValue();
+        Number n=(Number) hbTemp.iterate(hql).next();
+        return n.intValue();
     }
   
     //第几个开始查,查几个

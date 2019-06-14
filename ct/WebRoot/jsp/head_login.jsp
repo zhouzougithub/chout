@@ -23,14 +23,14 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#"><img src="<%= this.getServletContext().getContextPath() %>/images/logo2.png" alt="logo"></a>
+					<a class="navbar-brand" href="<%=this.getServletContext().getContextPath()%>/news/showNews.action"><img src="<%= this.getServletContext().getContextPath() %>/images/logo2.png" alt="logo"></a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="#">全部<span class="sr-only">(current)</span></a></li>
+						<ul class="nav navbar-nav .top-navbar-nav1">
+							<li class="active"><a href="<%=this.getServletContext().getContextPath()%>/news/showNews.action">全部<span class="sr-only">(current)</span></a></li>
 							<li><a href="#">42区</a></li>
 							<li><a href="#">段子</a></li>
 							<li><a href="#">图片</a></li>
@@ -53,14 +53,14 @@
 					
 					<!--用戶登錄欄-->
 					
-					<ul class="nav navbar-nav navbar-right userlist">
+					<ul class="nav navbar-nav navbar-right userTitle">
 						<!--==========ace用户头像============-->
-						<li class="light-blue">
+						<li class="light-blue" style="width: 160px">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="<%= this.getServletContext().getContextPath() %>${use.headimgurl}" alt="用户头像" />
+								<img class="nav-user-photo" src="<%= this.getServletContext().getContextPath() %>${use.headimgurl}" style="max-width: 40px;" />
 								<span class="user-info">
-									<small>欢迎光临,</small>
-									${use.patname}
+									<small>&nbsp&nbsp&nbsp${use.patname}</small>
+									
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -68,14 +68,14 @@
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 								<li>
-									<a href="#">
+									<a href="<%= this.getServletContext().getContextPath() %>/news/myNews?type=0">
 										<i class="icon-cog"></i>
 										设置
 									</a>
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="<%= this.getServletContext().getContextPath() %>/jsp/useData.jsp">
 										<i class="icon-user"></i>
 										个人资料
 									</a>
@@ -84,7 +84,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="<%= this.getServletContext().getContextPath() %>/logout.action">
 										<i class="icon-off"></i>
 										退出
 									</a>

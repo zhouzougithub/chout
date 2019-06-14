@@ -19,18 +19,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><img src="<%= this.getServletContext().getContextPath() %>/images/logo2.png" alt="logo"></a>
+              <a class="navbar-brand" href="<%=this.getServletContext().getContextPath()%>/news/showNews.action"><img src="<%= this.getServletContext().getContextPath() %>/images/logo2.png" alt="logo"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">全部<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">42区</a></li>
-                <li><a href="#">段子</a></li>
-                <li><a href="#">图片</a></li>
-                <li><a href="#">挨踢1024</a></li>
-                <li><a href="#">你问我答</a></li>
+              <ul class="nav navbar-nav .top-navbar-nav1">
+                <li class="active"><a href="<%=this.getServletContext().getContextPath()%>/news/showNews.action">全部<span class="sr-only">(current)</span></a></li>
+                <li><a href="<%=this.getServletContext().getContextPath()%>/news/showNews.action?type=42区">42区</a></li>
+                <li><a href="<%=this.getServletContext().getContextPath()%>/news/showNews.action?type=段子">段子</a></li>
+                <li><a href="<%=this.getServletContext().getContextPath()%>/news/showNews.action?type=图片">图片</a></li>
+                <li><a href="<%=this.getServletContext().getContextPath()%>/news/showNews.action?type=挨踢1024">挨踢1024</a></li>
+                <li><a href="<%=this.getServletContext().getContextPath()%>/news/showNews.action?type=你问我答">你问我答</a></li>
               </ul>
                 <!--搜索框-->
               <form class="navbar-form navbar-right">

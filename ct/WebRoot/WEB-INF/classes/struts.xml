@@ -15,7 +15,6 @@
 				<interceptor-ref name="LoginInterceptor">
 						<!-- 放行这几个action,,不跳转登录jsp -->
 					<param name="excludeMethods">showNewsList,registerUser,login</param> 
-				
 				</interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
@@ -41,6 +40,17 @@
 				<param name="actionName">showNews</param>
 			</result>
 		</action>
+		
+		<action name="logout" class="cn.zz.web.action.LoginUserAction"  method="logout">
+			<result name="success">/index.jsp</result>	
+		</action>
+		<!-- 修改用户信息 -->
+		<action name="changeUse" class="cn.zz.web.action.ChangeUserAction" method="changeUser">
+			<result name="login">/index.jsp</result>
+			<result name="success">/jsp/useData.jsp</result>
+			<result name="error">/jsp/useData.jsp</result>
+		</action>
+		
 	</package>
 	
 	
@@ -53,16 +63,24 @@
 			<result name="index">/jsp/index.jsp</result>
 			<result name="login">/login.jsp</result>
 		</action>
-	
+		
+		<action name="myNews" class="cn.zz.web.action.UserAction" method="showNewsByType">
+			<result name="success">/jsp/use.jsp</result>
+			<result name="LOGIN">/index.jsp</result>
+		</action>
 	</package>
 	
 	<package name="p2" namespace="/do" extends="myInterceptor">
 		<action name="goodNews" class="cn.zz.web.action.UserHandleNews" method="goodNews">
-			<result name="success">/login.jsp</result>
+			
 		</action>
 		<action name="collect" class="cn.zz.web.action.UserHandleNews" method="collect">
-			<result name="success">/login.jsp</result>
+			
 		</action>
+		<action name="addcomment" class="cn.zz.web.action.UserHandleNews" method="addCommentByNewsId">
+			
+		</action>
+		
 	
 	</package>
 	

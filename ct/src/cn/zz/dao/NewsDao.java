@@ -1,6 +1,7 @@
 package cn.zz.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import cn.zz.domain.Comment;
@@ -14,7 +15,7 @@ public interface NewsDao
     public abstract void addComment(Comment c);
 
     // 查找新闻
-    public abstract List<News> pagingNews(int offset, int length);
+    public abstract List<News> pagingNewsByDate(int offset, int length);
     //查找新闻总数
     public int findNewsSum();
     //查找新闻
@@ -25,5 +26,8 @@ public interface NewsDao
 //    public void collect(User u,News n);
 
     public abstract Set<Comment> findCommentByNewsId(int id);
+
+    public abstract List<News> pagingNewsByDate(int offset, int length,
+            Map<String, String> conMap);
 
 }
